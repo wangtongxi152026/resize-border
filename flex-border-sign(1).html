@@ -1,0 +1,192 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title dir="rtl">Document Document Document</title>
+  <style>
+    /* body {
+        filter: grayscale(1);
+      } */
+
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      transform: scale(var(--scale));
+      transform-origin: top left;
+    }
+
+    .wrap-board {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .selection-stage-board {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: 0 0;
+    }
+
+    .smart-corner {
+      display: block;
+      background-color: rgb(38, 126, 199);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid rgb(227, 235, 238);
+      bottom: -12px;
+      right: -12px;
+      position: absolute;
+      pointer-events: auto;
+    }
+
+    .smart-corner:hover #util {
+      transition-duration: 1s;
+      display: block;
+    }
+
+    .container ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .container ::-webkit-scrollbar-thumb {
+      background: #8c8c8c;
+      border-radius: 10px;
+    }
+
+    #util {
+      left: 50%;
+      top: 50%;
+      position: absolute;
+      display: none;
+      width: 200px;
+      height: 100px;
+      border-radius: 4px;
+      background-color: rgb(12, 221, 151);
+    }
+
+    .single-selection,
+    .single-selection-dashed {
+      display: none;
+      position: absolute;
+      left: 673px;
+      top: 48px;
+      width: 106px;
+      box-sizing: border-box;
+      height: 23px;
+    }
+
+    .single-selection {
+      border: 2px solid #2f54eb;
+    }
+
+    .single-selection-dashed {
+      border: 1px dashed #666;
+      background: rgba(102, 102, 102, .1);
+    }
+
+    .box {
+      display: grid;
+      width: 100%;
+      height: 100%;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 50px 200px 150px 100px;
+      row-gap: 12px;
+      column-gap: 12px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid pink;
+    }
+
+    .item1 {
+      border: 6px dotted rebeccapurple;
+    }
+  </style>
+</head>
+
+<body class="body">
+  <div>
+    <div>
+      <span>缩放比例</span>
+      <select value="0.80" class="select">
+        <option value="0.80">80%</option>
+        <option value="1">100%</option>
+        <option value="0.10">10%</option>
+        <option value="0.25">25%</option>
+        <option value="0.50">50%</option>
+        <option value="1.2">120%</option>
+        <option value="1.5">150%</option>
+        <option value="2">200%</option>
+        <option value="3">300%</option>
+      </select>
+    </div>
+
+    <div style="--scale: 0.8" class="container">
+      <div class="wrap-board">
+        <div class="selection-stage-board">
+          <div class="single-selection">
+            <div class="smart-corner">
+              <div id="util">名字</div>
+            </div>
+          </div>
+          <div class="single-selection-dashed"></div>
+        </div>
+      </div>
+      <div style="height: 100%">
+        <div class="box">
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item item1"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item">
+            <div style="width: 50px; height: 70px; background-color: aquamarine"></div>
+            <div style="width: 40px; height: 60px; background-color: aquamarine; margin-left: 20px"></div>
+          </div>
+          <div class="item"></div>
+          <div style="margin:0 auto;">
+            <div style="display: inline-block; width: 500px; height: 400px; overflow: auto">
+              <div>
+                <div>
+                  <div>
+                    <a
+                      style="display: inline-block; width: 200px; height: 100px; background-color: rgb(42, 130, 165)"></a>
+                  </div>
+                </div>
+              </div>
+              <a style="display: inline-block; width: 600px; height: 100px; background-color: pink"></a>
+              <a style="display: inline-block; width: 200px; height: 100px; background-color: pink"></a>
+              <a style="display: inline-block; width: 200px; height: 100px; background-color: pink"></a>
+              <a style="display: inline-block; width: 200px; height: 700px; background-color: pink"></a>
+              <a style="display: inline-block; width: 200px; height: 100px; background-color: pink"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./throttle.js"></script>
+<script src="./ResizeBorderSignd.js"></script>
+<!-- <script src="./script.js"> -->
+
+</script>
+
+</html>
