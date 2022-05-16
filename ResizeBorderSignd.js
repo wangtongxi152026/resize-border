@@ -1,9 +1,9 @@
 /** @format */
-const container = document.querySelector(".container");
-const select = document.querySelector(".select");
-const target = document.querySelector(".single-selection");
-const targetDashed = document.querySelector(".single-selection-dashed");
-const wrap = document.querySelector(".selection-stage-board");
+const container = document.querySelector('.container');
+const select = document.querySelector('.select');
+const target = document.querySelector('.single-selection');
+const targetDashed = document.querySelector('.single-selection-dashed');
+const wrap = document.querySelector('.selection-stage-board');
 
 class ResizeBorderSignd {
   static scale = 1;
@@ -18,7 +18,7 @@ class ResizeBorderSignd {
     this.rect;
     this.parentRect;
     this.currentDOM;
-    this.eventType = options.eventType || "click";
+    this.eventType = options.eventType || 'click';
     this.marked = options.marked;
     this.cb = options.cb || null;
     this.isNeedScroll = options.isNeedScroll;
@@ -27,8 +27,8 @@ class ResizeBorderSignd {
 
   windowResizeHandle() {
     const boxRect = ResizeBorderSignd.box.getBoundingClientRect();
-    wrap.style.width = boxRect.width + "px";
-    wrap.style.height = boxRect.height + "px";
+    wrap.style.width = boxRect.width + 'px';
+    wrap.style.height = boxRect.height + 'px';
     this.parentRect = this.parent.getBoundingClientRect();
     hiddenDashed();
     if (this.currentDOM) {
@@ -37,15 +37,15 @@ class ResizeBorderSignd {
   }
 
   listener() {
-    ResizeBorderSignd.box["on" + this.eventType] = (e) => {
-      if (this.eventType == "mouseover" && this.currentDOM !== e.target) {
+    ResizeBorderSignd.box['on' + this.eventType] = (e) => {
+      if (this.eventType == 'mouseover' && this.currentDOM !== e.target) {
         // 清除上一个元素的onmousemove
         if (this.currentDOM) {
           this.currentDOM.onmousemove = null;
         }
       }
 
-      if (this.eventType == "mouseover") {
+      if (this.eventType == 'mouseover') {
         // hover和click的是同一个元素
         if (AR.currentDOM === e.target) {
           hiddenDashed();
@@ -63,19 +63,19 @@ class ResizeBorderSignd {
       this.parentRect = this.parent.getBoundingClientRect();
 
       this.getCurrentPos();
-      if (this.eventType == "mouseover") {
+      if (this.eventType == 'mouseover') {
         if (AR.currentDOM === undefined && e.target) {
           this.parent.onscroll = throttle(this.getCurrentPos.bind(this, this.cb));
         }
       }
 
-      if (this.eventType === "click") {
+      if (this.eventType === 'click') {
         // hover和click的是同一个元素
         if (BR.currentDOM === this.currentDOM) {
           hiddenDashed();
         }
         this.parent.onscroll = throttle(this.getCurrentPos.bind(this, this.cb));
-      } else if (this.eventType === "mouseover") {
+      } else if (this.eventType === 'mouseover') {
         this.currentDOM.onmousemove = () => {
           // debounce(this.getCurrentPos.bind(this), 200, false);
           throttle(this.getCurrentPos.bind(this));
@@ -97,7 +97,7 @@ class ResizeBorderSignd {
       rect.right < parentRect.left ||
       parentRect.right < rect.left
     ) {
-      this.marked.style.display = "none";
+      this.marked.style.opacity = '0';
       return;
     }
     let detaTop = rect.top - parentRect.top;
@@ -108,38 +108,38 @@ class ResizeBorderSignd {
 
     // 子元素上面超出父级范围
     if (detaTop < 0) {
-      let height = (rect.height + detaTop) * (1 / scale) + "px";
+      let height = (rect.height + detaTop) * (1 / scale) + 'px';
       // 下面也超出
       if (detaBottom < 0) {
-        height = (rect.height + detaTop + detaBottom) * (1 / scale) + "px";
+        height = (rect.height + detaTop + detaBottom) * (1 / scale) + 'px';
       }
       marked.style.height = height;
-      marked.style.top = (rect.top - boxRect.top - detaTop) * (1 / scale) + "px";
+      marked.style.top = (rect.top - boxRect.top - detaTop) * (1 / scale) + 'px';
     } else if (detaBottom < 0) {
-      marked.style.height = (rect.height + detaBottom) * (1 / scale) + "px";
-      marked.style.top = (rect.top - boxRect.top) * (1 / scale) + "px";
+      marked.style.height = (rect.height + detaBottom) * (1 / scale) + 'px';
+      marked.style.top = (rect.top - boxRect.top) * (1 / scale) + 'px';
     } else {
-      marked.style.height = rect.height * (1 / scale) + "px";
-      marked.style.top = (rect.top - boxRect.top) * (1 / scale) + "px";
+      marked.style.height = rect.height * (1 / scale) + 'px';
+      marked.style.top = (rect.top - boxRect.top) * (1 / scale) + 'px';
     }
 
     // 子元素下面超出父级范围
     if (detaLeft < 0) {
-      let width = (rect.width + detaLeft) * (1 / scale) + "px";
+      let width = (rect.width + detaLeft) * (1 / scale) + 'px';
       // 上面也超出
       if (detaRight < 0) {
-        width = (rect.width + detaLeft + detaRight) * (1 / scale) + "px";
+        width = (rect.width + detaLeft + detaRight) * (1 / scale) + 'px';
       }
       marked.style.width = width;
-      marked.style.left = (rect.left - boxRect.left - detaLeft) * (1 / scale) + "px";
+      marked.style.left = (rect.left - boxRect.left - detaLeft) * (1 / scale) + 'px';
     } else if (detaRight < 0) {
-      marked.style.width = (rect.width + detaRight) * (1 / scale) + "px";
-      marked.style.left = (rect.left - boxRect.left) * (1 / scale) + "px";
+      marked.style.width = (rect.width + detaRight) * (1 / scale) + 'px';
+      marked.style.left = (rect.left - boxRect.left) * (1 / scale) + 'px';
     } else {
-      marked.style.width = rect.width * (1 / scale) + "px";
-      marked.style.left = (rect.left - boxRect.left) * (1 / scale) + "px";
+      marked.style.width = rect.width * (1 / scale) + 'px';
+      marked.style.left = (rect.left - boxRect.left) * (1 / scale) + 'px';
     }
-    marked.style.display = "block";
+    marked.style.opacity = '1';
     if (cb) {
       cb();
     }
@@ -163,27 +163,27 @@ class ResizeBorderSignd {
 
 select.onchange = function (e) {
   ResizeBorderSignd.scale = e.target.value;
-  container.style.setProperty("--scale", ResizeBorderSignd.scale);
+  container.style.setProperty('--scale', ResizeBorderSignd.scale);
 };
 
 ResizeBorderSignd.scale = 0.8;
-ResizeBorderSignd.box = document.querySelector(".box");
+ResizeBorderSignd.box = document.querySelector('.box');
 
 const AR = new ResizeBorderSignd({
   marked: target,
-  eventType: "click",
+  eventType: 'click',
   isNeedScroll: true,
   cb: hiddenDashed,
 });
 
 const BR = new ResizeBorderSignd({
-  eventType: "mouseover",
+  eventType: 'mouseover',
   marked: targetDashed,
   isNeedScroll: false,
 });
 
 function hiddenDashed() {
-  targetDashed.style.display = "none";
+  targetDashed.style.opacity = 0;
 }
 
 // 处理浏览器窗口改变
