@@ -90,10 +90,12 @@
     }
 
     .single-selection {
+      /* transition:all 0.15s; */
       border: 2px solid #2f54eb;
     }
 
     .single-selection-dashed {
+      /* transition:all 0.15s; */
       border: 1px dashed #666;
       background: rgba(102, 102, 102, .1);
     }
@@ -146,7 +148,11 @@
               <div id="util">名字</div>
             </div>
           </div>
-          <div class="single-selection-dashed"></div>
+          <div class="single-selection-dashed">
+            <div class="smart-corner">
+              <div id="util">名字</div>
+            </div>
+          </div>
         </div>
       </div>
       <div style="height: 100%">
@@ -157,9 +163,10 @@
           <div class="item"></div>
           <div class="item item1"></div>
           <div class="item"></div>
-          <div style="width: 50px; height: 50px; background-color: aquamarine;border-radius:50%" ></div>
-          <div class="item"></div>
           <div class="item">
+          </div>
+          <div class="item">
+          <div style="width: 50px; height: 50px; background-color: aquamarine;border-radius:50%" ></div>
             <div style="width: 100px; height: 100px; background-color: aquamarine"></div>
             <div style="width: 40px; height: 60px; background-color: aquamarine; margin-left: 20px"></div>
           </div>
@@ -187,8 +194,8 @@
   </div>
 </body>
 <script src="./throttle.js"></script>
+<!-- <script src="./ResizeBorderSignd.js"></script> -->
 <script src="./ResizeBorderSignd.js"></script>
-<!-- <script src="./script.js"> -->
 
 </script>
 

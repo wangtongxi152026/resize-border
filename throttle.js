@@ -1,3 +1,5 @@
+/** @format */
+
 function throttle(func, wait, options) {
   var context, args, result;
   // setTimeout 的 handler

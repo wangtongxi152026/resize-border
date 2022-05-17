@@ -1,3 +1,10 @@
+/*
+ * @Descripttion: 
+ * @Author: wangtongxi
+ * @Date: 2022-05-16 17:13:09
+ * @LastEditors: wangtongxi
+ * @LastEditTime: 2022-05-16 17:13:09
+ */
 /** @format */
 const container = document.querySelector('.container');
 const select = document.querySelector('.select');
@@ -40,51 +47,58 @@ class ResizeBorderSignd {
 
   listener() {
     ResizeBorderSignd.box['on' + this.eventType] = (e) => {
-      if (this.eventType == 'mouseover') {
+      if (this.eventType == 'mouseover' && this.currentDOM !== e.target) {
         // 清除上一个元素的onmousemove
-        if (this.currentDOM && this.currentDOM !== e.target) {
+        if (this.currentDOM) {
           this.currentDOM.onmousemove = null;
         }
+      }
+
+      if (this.eventType == 'mouseover') {
         // hover和click的是同一个元素
         if (isClickBoder.currentDOM === e.target) {
           hiddenDashed();
           return;
         }
       }
+
       this.currentDOM = e.target;
+
       this.getScrolltContainer(this.currentDOM, () => {
         if (this.isNeedScroll && this.parent) {
           this.parent.onscroll = null;
         }
       });
       this.parentRect = this.parent.getBoundingClientRect();
-     
+
+      this.getCurrentPos();
       if (this.eventType == 'mouseover') {
-        this.getCurrentPos(this.cb);
         if (isClickBoder.currentDOM === undefined && e.target) {
           this.parent.onscroll = throttle(() => {
             this.marked.style.transition = '';
-            this.getCurrentPos.call(this, this.cb);
+            this.getCurrentPos.bind(this, this.cb);
           });
+          // this.parent.onscroll = throttle(this.getCurrentPos.bind(this, this.cb));
         }
+      }
+
+      if (this.eventType === 'click') {
+        this.marked.style.transition = this.transition;
+
+        // hover和click的是同一个元素
+        if (isHoverBoder.currentDOM === this.currentDOM) {
+          hiddenDashed();
+        }
+        this.parent.onscroll = throttle(() => {
+          this.marked.style.transition = '';
+          this.getCurrentPos.call(this, this.cb);
+        });
+      } else if (this.eventType === 'mouseover') {
         this.currentDOM.onmousemove = () => {
           // debounce(this.getCurrentPos.bind(this), 200, false);
           throttle(this.getCurrentPos.bind(this));
         };
       }
-
-      if (this.eventType === 'click') {
-        // hover和click的是同一个元素
-        if (isHoverBoder.currentDOM === this.currentDOM) {
-          hiddenDashed();
-        }
-        this.marked.style.transition = this.transition;
-        this.getCurrentPos();
-        this.parent.onscroll = throttle(() => {
-          this.marked.style.transition = '';
-          this.getCurrentPos.call(this, this.cb);
-        });
-      } 
     };
   }
 
