@@ -3,7 +3,7 @@
  * @Author: wangtongxi
  * @Date: 2022-05-16 17:13:09
  * @LastEditors: wangtongxi
- * @LastEditTime: 2022-05-16 17:13:09
+ * @LastEditTime: 2022-05-17 16:51:25
  */
 /** @format */
 const container = document.querySelector('.container');
@@ -76,7 +76,7 @@ class ResizeBorderSignd {
         if (isClickBoder.currentDOM === undefined && e.target) {
           this.parent.onscroll = throttle(() => {
             this.marked.style.transition = '';
-            this.getCurrentPos.bind(this, this.cb);
+            this.getCurrentPos.call(this, this.cb);
           });
           // this.parent.onscroll = throttle(this.getCurrentPos.bind(this, this.cb));
         }

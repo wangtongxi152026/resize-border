@@ -27,6 +27,9 @@ class ResizeBorderSignd {
   }
 
   windowResizeHandle() {
+    if (!this.parent) {
+      return;
+    }
     hiddenDashed();
     const boxRect = ResizeBorderSignd.boxRect();
     wrap.style.width = boxRect.width + 'px';
@@ -52,24 +55,28 @@ class ResizeBorderSignd {
         }
       }
       this.currentDOM = e.target;
-      this.getScrolltContainer(this.currentDOM, () => {
+      this.getScrolltContainer(e.target, () => {
         if (this.isNeedScroll && this.parent) {
           this.parent.onscroll = null;
         }
       });
       this.parentRect = this.parent.getBoundingClientRect();
-     
+
       if (this.eventType == 'mouseover') {
-        this.getCurrentPos(this.cb);
         if (isClickBoder.currentDOM === undefined && e.target) {
           this.parent.onscroll = throttle(() => {
             this.marked.style.transition = '';
             this.getCurrentPos.call(this, this.cb);
           });
         }
+
         this.currentDOM.onmousemove = () => {
-          // debounce(this.getCurrentPos.bind(this), 200, false);
-          throttle(this.getCurrentPos.bind(this));
+          if (isClickBoder.currentDOM === e.target) {
+            hiddenDashed();
+            return;
+          }
+          debounce(this.getCurrentPos.call(this), 20, false);
+          // this.getCurrentPos(this.cb)
         };
       }
 
@@ -82,9 +89,10 @@ class ResizeBorderSignd {
         this.getCurrentPos();
         this.parent.onscroll = throttle(() => {
           this.marked.style.transition = '';
+          // this.getCurrentPos.call(this, this.cb);
           this.getCurrentPos.call(this, this.cb);
         });
-      } 
+      }
     };
   }
 
@@ -93,7 +101,8 @@ class ResizeBorderSignd {
     let scale = ResizeBorderSignd.scale;
     let boxRect = ResizeBorderSignd.box.getBoundingClientRect();
     let rect = this.currentDOM.getBoundingClientRect();
-    let parentRect = this.parentRect;
+    let parentRect = this.parent.getBoundingClientRect();
+    // let parentRect = this.parentRect;
     // marked.style.transition = transitionTime ?? this.transitionTime;
     // 溢出父级隐藏
     if (
