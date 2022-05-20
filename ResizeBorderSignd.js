@@ -81,7 +81,6 @@ class ResizeBorderSignd {
       }
 
       if (this.eventType === 'click') {
-        // hover和click的是同一个元素
         if (isHoverBoder.currentDOM === this.currentDOM) {
           hiddenDashed();
         }
@@ -89,7 +88,6 @@ class ResizeBorderSignd {
         this.getCurrentPos();
         this.parent.onscroll = throttle(() => {
           this.marked.style.transition = '';
-          // this.getCurrentPos.call(this, this.cb);
           this.getCurrentPos.call(this, this.cb);
         });
       }
